@@ -10,6 +10,7 @@ export function loader(scene) {
   scene.load.spritesheet('boton-fullscreen', './src/img/boton-fullscreen.png', {frameWidth: 64, frameHeight: 64});
   
   scene.load.spritesheet('jugador', './src/img/bird64x72.png', {frameWidth: 64, frameHeight: 72});
+  scene.load.image('pipe', './src/img/pipe.png');
 
   // -------------------------------------------------------------------------
   scene.load.audio('musica-fondo', './src/audio/8-bit-arcade-1.mp3');

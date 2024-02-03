@@ -1,6 +1,5 @@
 import { Iniciar } from './scenes/iniciar.js';
 import { MenuPrincipal } from './scenes/menuprincipal.js';
-// import { PreNivel } from './scenes/prenivel.js';
 import { Game } from './scenes/game.js';
 import { Gameover } from './scenes/gameover.js';
 

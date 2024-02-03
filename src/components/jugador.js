@@ -8,12 +8,15 @@ export class Jugador {
 
     create() {
 
-        this.jugador = this.relatedScene.physics.add.sprite(this.relatedScene.sys.game.config.width / 4, 100, 'jugador');
+        const jugadorPosX = this.relatedScene.sys.game.config.width / 3;
 
-        this.jugador.setData('vel-y', 300);// fuerza del aleteo del pajaro
+        this.jugador = this.relatedScene.physics.add.sprite(jugadorPosX, 100, 'jugador');
 
-        this.jugador.setFlip(true).setAngle(0).setAlpha(1);
-        this.jugador.setX(this.relatedScene.sys.game.config.width / 4).setY(100);
+        this.jugador.setData('vel-y', 260);// fuerza del aleteo del pajaro
+        this.aleteo = 0;
+
+        this.jugador.setFlip(true).setAngle(0).setAlpha(1).setDepth(20);
+        this.jugador.setX(jugadorPosX).setY(100);
         this.jugador.setVelocityY(0);
         this.jugador.body.setAllowGravity(true);
         this.jugador.setCollideWorldBounds(true);
@@ -33,6 +36,7 @@ export class Jugador {
 
             this.jugador.setVelocityY(-this.jugador.getData('vel-y'));
             this.jugador.anims.play('aleteo', true);
+            this.aleteo = 1;
         });
 
         console.log(this.jugador);
@@ -50,11 +54,19 @@ export class Jugador {
 
             this.jugador.anims.play('aleteo', true);
             this.jugador.setVelocityY(-this.jugador.getData('vel-y'));
+            this.aleteo = 1;
         }
+    }
+
+    getAleteo() {
+        return this.aleteo;
+    }
+
+    setAleteo(aleteo) {
+        this.aleteo = aleteo;
     }
 
     get() {
         return this.jugador;
-
     }
 }

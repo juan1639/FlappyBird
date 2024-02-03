@@ -6,6 +6,7 @@ import { loader } from './loader.js';
 import { Settings } from './settings.js';
 import { FondoScroll } from '../components/fondoscroll.js';
 import { Jugador } from '../components/jugador.js';
+import { Tuberias } from '../components/tuberias.js';
 import { Marcador } from '../components/marcador.js';
 import { Textos } from '../components/textos.js';
 import { BotonFullScreen } from '../components/boton-nuevapartida.js';
@@ -26,6 +27,7 @@ export class Game extends Phaser.Scene {
 
     this.fondoscroll = new FondoScroll(this);
     this.jugador = new Jugador(this);
+    this.tuberias = new Tuberias(this);
 
     const ancho = this.sys.game.config.width;
     const alto = this.sys.game.config.height;
@@ -55,8 +57,9 @@ export class Game extends Phaser.Scene {
     this.sonidos_set();
 
     // --------------------------------------------------------------
-    this.fondoscroll.create();
     this.jugador.create();
+    this.fondoscroll.create();
+    this.tuberias.create();
 
     // --------------------------------------------------------------
     this.marcadorPtos.create();
@@ -77,6 +80,8 @@ export class Game extends Phaser.Scene {
 
     // this.pointer_showXY(this.mouse_showXY);
     this.jugador.update();
+    this.fondoscroll.update(this.jugador.getAleteo());
+    this.tuberias.update();
   }
 
   // ================================================================
