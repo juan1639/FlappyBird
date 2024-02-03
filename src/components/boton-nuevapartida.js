@@ -1,5 +1,4 @@
 import { play_sonidos } from "../functions/functions.js";
-import { Settings } from "../scenes/settings.js";
 
 // ==================================================================================
 export class BotonNuevaPartida {
@@ -17,9 +16,11 @@ export class BotonNuevaPartida {
     const alto = this.relatedScene.sys.game.config.height;
     const botonCondicional = 'boton-nueva-partida';
 
-    this.boton = this.relatedScene.add.sprite(Math.floor(ancho / 2), Math.floor(alto / 1.5), botonCondicional).setInteractive();
-    this.boton.setScale(0.6);
-    this.boton.setAngle(1);
+    let posY = 1.5;
+    if (siguienteScene === 'game') posY = 1.25;
+
+    this.boton = this.relatedScene.add.sprite(Math.floor(ancho / 2), Math.floor(alto / posY), botonCondicional).setInteractive();
+    this.boton.setScale(0.6).setAngle(1).setDepth(30);
 
     this.boton.on('pointerover', () => {
       // this.boton.setFrame(1);
@@ -65,7 +66,8 @@ export class BotonFullScreen {
     const alto = this.relatedScene.sys.game.config.height;
 
     this.boton = this.relatedScene.add.image(this.direccion.x, this.direccion.y, this.direccion.id).setInteractive();
-    this.boton.setScale(this.direccion.scX, this.direccion.scY).setAngle(this.direccion.ang).setFrame(0).setDepth(4);
+    this.boton.setScale(this.direccion.scX, this.direccion.scY);
+    this.boton.setAngle(this.direccion.ang).setFrame(0).setDepth(50);
     this.boton.setX(this.direccion.x).setY(this.direccion.y);
 
     this.boton.on('pointerover', () => {

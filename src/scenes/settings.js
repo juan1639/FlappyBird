@@ -8,11 +8,12 @@ export class Settings {
     };
 
     static puntos = 0;
-    static hi = 5000;
+    static hi = 784;
     static vidas = 3;
 
     static fuerzaAleteoPajaro = 200;
     static velScroll = 4;
+    static incProgresivoVelScroll = 500;
 
     // -----------------------------------------------
     static getScreen() {
@@ -37,6 +38,10 @@ export class Settings {
 
     static getVelScroll() {
         return Settings.velScroll;
+    }
+
+    static getIncProgresivoVelScroll() {
+        return Settings.incProgresivoVelScroll;
     }
 
     // -----------------------------------------------

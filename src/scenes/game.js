@@ -2,14 +2,13 @@
 //  F l a p p y  J o n
 // 
 // -----------------------------------------------------------------------------------------
-import { loader } from './loader.js';
 import { FondoScroll } from '../components/fondoscroll.js';
 import { Jugador } from '../components/jugador.js';
 import { Tuberias, TuberiasMoviles } from '../components/tuberias.js';
 import { Marcador } from '../components/marcador.js';
 import { Textos } from '../components/textos.js';
-import { BotonFullScreen } from '../components/boton-nuevapartida.js';
-import { play_sonidos } from '../functions/functions.js';
+import { BotonNuevaPartida, BotonFullScreen } from '../components/boton-nuevapartida.js';
+import { play_sonidos, colisionYgameover } from '../functions/functions.js';
 
 // ============================================================================
 export class Game extends Phaser.Scene {
@@ -29,26 +28,28 @@ export class Game extends Phaser.Scene {
     const alto = this.sys.game.config.height;
 
     this.marcadorPtos = new Marcador(this, {
-      x: 10, y: -99, size: 35, txt: ' Puntos: ', color: '#fff', id: 0
+      x: 10, y: 0, size: 35, txt: ' Puntos: ', color: '#fff', id: 0
     });
 
     this.marcadorHi = new Marcador(this, {
-      x: Math.floor(ancho / 1.1), y: -99, size: 35, txt: ' Record: ', color: '#fff', id: 2
+      x: Math.floor(ancho / 2), y: 0, size: 35, txt: ' Record: ', color: '#fff', id: 2
     });
 
     this.botonfullscreen = new BotonFullScreen(this, {
-      id: 'boton-fullscreen', x: Math.floor(this.sys.game.config.width * 1.35), y: -77,
-      ang: 0, scX: 0.9, scY: 0.9 
+      id: 'boton-fullscreen', x: Math.floor(this.sys.game.config.width / 1.1), y: 25,
+      ang: 0, scX: 0.8, scY: 0.6 
     });
+
+    this.txt = new Textos(this);
+    this.botoninicio = new BotonNuevaPartida(this);
   }
 
   preload() {
     
-    loader(this);
+    // loader(this);
   }
 
   create() {
-    //getSettings_json(this);
 
     this.sonidos_set();
 
@@ -64,12 +65,14 @@ export class Game extends Phaser.Scene {
     // this.jugadorSV.create();
     this.botonfullscreen.create();
 
+    this.texto_preparado();
+
     this.mouse_showXY = {
       create: this.add.text(this.jugador.get().x, this.jugador.get().y - 100, ' ', { fill: '#111' }),
       show_mouseXY: true
     }
 
-    // this.crear_colliders();
+    this.crear_colliders();
   }
   
   // ================================================================
@@ -79,7 +82,6 @@ export class Game extends Phaser.Scene {
     this.jugador.update();
     this.fondoscroll.update(this.jugador.getAleteo());
     this.tuberias.update();
-
     this.moviles.update();
   }
 
@@ -96,9 +98,44 @@ export class Game extends Phaser.Scene {
   }
 
   // ================================================================
+  texto_preparado() {
+
+    const left = Math.floor(this.sys.game.config.width / 2.2);
+    const top = Math.floor(this.sys.game.config.height / 2);
+
+    this.txt.create({
+        x: left, y: top, texto: ' Preparado... ',
+        size: 30, style: 'bold', oofx: 1, offy: 1, col: '#fff', blr: 15,
+        fillShadow: true, fll: '#3a1', family: 'verdana, arial, sans-serif',
+        screenWidth: this.sys.game.config.width, multip: 1
+    });
+
+    setTimeout(() => this.txt.get().destroy(), 1900);
+  }
+
+  // ================================================================
   crear_colliders() {
 
-    this.physics.add.collider(this.jugador.get(), this.tuberias.get());
+    this.physics.add.collider(this.jugador.get(), this.tuberias.get(), (jugador, tuberia) => {
+
+      colisionYgameover(jugador, this);
+
+    }, (jugador, tuberia) => {
+
+      if (jugador.getData('game-over')) return false;
+      return true;
+    });
+
+    // ----------------------------------------------------------
+    this.physics.add.collider(this.jugador.get(), this.moviles.get(), (jugador, moviles) => {
+
+      colisionYgameover(jugador, this);
+
+    }, (jugador, moviles) => {
+
+      if (jugador.getData('game-over')) return false;
+      return true;
+    }, this);
   }
 
   // ================================================================

@@ -29,6 +29,7 @@ export class Textos {
             fill: fll,
             fontFamily: family
         });
+        this.txt.setDepth(25);
 
         this.centrar(texto, screenWidth, multip);
         this.crear_tweens(texto);
@@ -39,7 +40,7 @@ export class Textos {
     crear_tweens(texto) {
 
         const array_tweens = [
-            ' Ouch! '
+            ' Preparado... '
         ];
 
         array_tweens.forEach(tween => {
@@ -48,9 +49,7 @@ export class Textos {
 
                 this.relatedScene.tweens.add({
                     targets: this.txt,
-                    y: this.relatedScene.sys.game.config.height * 3 - 200,
-                    x: this.relatedScene.jugador.get().x,
-                    scale: 1.2,
+                    alpha: 0,
                     ease: 'easeOut',
                     duration: 1500
                 });
@@ -68,13 +67,9 @@ export class Textos {
 
                 this.relatedScene.tweens.add({
                     targets: this.txt,
-                    scale: 1.2,
-                    x: 24,
-                    ease: 'Ease',
-                    yoyo: true,
-                    hold: 900,
-                    duration: 2000,
-                    repeat: -1
+                    y: Math.floor(this.relatedScene.sys.game.config.height / 5),
+                    ease: 'Elastic',
+                    duration: 2000
                 });
             }
         });

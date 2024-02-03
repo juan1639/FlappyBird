@@ -15,12 +15,13 @@ export class Marcador {
         let texto = '';
 
         if (id === 0) texto = `${txt}${Settings.getPuntos()}`;
-        if (id === 1) texto = `${txt}${Settings.getNivel()}`;
         if (id === 2) texto = `${txt}${Settings.getRecord()}`;
 
         this.marcador = this.relatedScene.add.text(x, y, texto, {
-            fontSize: size + 'px', fill: color, fontFamily: 'verdana, arial, sans-serif'
+            fontSize: size + 'px', fill: color, fontFamily: 'verdana, arial, sans-serif', fontStyle: 'bold'
         });
+
+        this.marcador.setDepth(50);
 
         console.log(this.marcador);
     }

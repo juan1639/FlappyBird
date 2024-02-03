@@ -9,7 +9,7 @@ export function loader(scene) {
   scene.load.image('boton-nueva-partida', './src/img/boton-start.png');
   scene.load.spritesheet('boton-fullscreen', './src/img/boton-fullscreen.png', {frameWidth: 64, frameHeight: 64});
   
-  scene.load.spritesheet('jugador', './src/img/bird64x72.png', {frameWidth: 64, frameHeight: 72});
+  scene.load.spritesheet('jugador', './src/img/bird64x72.png', {frameWidth: 64, frameHeight: 62});
   scene.load.image('pipe', './src/img/pipe.png');
 
   // -------------------------------------------------------------------------

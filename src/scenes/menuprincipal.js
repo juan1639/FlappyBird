@@ -17,6 +17,7 @@ export class MenuPrincipal extends Phaser.Scene {
 
         Settings.setPuntos(0);
         Settings.setVidas(3);
+        Settings.setVelScroll(4);
 
         this.fondoscroll = new FondoScroll(this);
         this.botoninicio = new BotonNuevaPartida(this);
@@ -40,18 +41,20 @@ export class MenuPrincipal extends Phaser.Scene {
     }
     
     create() {
+        
+        this.sonidoMenuSelect = this.sound.add('moneda-mario');
 
-        const aparecerBoton = 3200;
+        const aparecerBoton = 1900;
 
         this.fondoscroll.create();
         
         // -----------------------------------------------------------
         const left = Math.floor(this.sys.game.config.width / 5.2);
-        const top = Math.floor(this.sys.game.config.height / 4.2);
+        const top = -200;
 
         this.txt.create({
             x: left, y: top, texto: ' Flappy Jon ',
-            size: 90, style: 'bold', oofx: 1, offy: 1, col: '#fff', blr: 15,
+            size: 100, style: 'bold', oofx: 1, offy: 1, col: '#fff', blr: 15,
             fillShadow: true, fll: '#e81', family: 'verdana, arial, sans-serif',
             screenWidth: this.sys.game.config.width, multip: 1
         });
@@ -60,10 +63,12 @@ export class MenuPrincipal extends Phaser.Scene {
             {
                 at: aparecerBoton,
                 run: () => {
-                    this.botoninicio.create('game');
+                    this.botoninicio.create('prenivel');
                 }
             }
         ]).play();
+
+        play_sonidos(this.sonidoMenuSelect, false, 0.7);
 
         console.log(this.txt);
     }

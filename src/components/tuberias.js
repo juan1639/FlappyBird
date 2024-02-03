@@ -19,7 +19,7 @@ export class Tuberias {
 
     create() {
 
-        this.tuberias = this.relatedScene.add.group();
+        this.tuberias = this.relatedScene.physics.add.group();
 
         for (let i = 0; i < Tuberias.NRO_TUBERIAS; i ++) {
 
@@ -37,6 +37,7 @@ export class Tuberias {
             pipe.setData('vel-x', Settings.getVelScroll());
 
             pipe.setOrigin(0.5, 0).setDepth(10);
+            pipe.body.setAllowGravity(false).setImmovable(true);
 
             if (index % 2 === 0) {
 
@@ -59,7 +60,7 @@ export class Tuberias {
     update() {
 
         this.tuberias.children.iterate((pipe, index) => {
-
+ 
             pipe.setX(pipe.x - pipe.getData('vel-x'));
 
             if (pipe.x <= -Math.floor(Tuberias.sizeX / 2)) {
@@ -72,7 +73,17 @@ export class Tuberias {
     crear_nueva_pipe(pipe, index) {
 
         Settings.setPuntos(Settings.getPuntos() + 1);
-        console.log(Settings.getPuntos());
+        this.relatedScene.marcadorPtos.update(' Puntos: ', Settings.getPuntos());
+
+        // console.log(Settings.getPuntos());
+
+        if (Settings.getPuntos() % Settings.getIncProgresivoVelScroll() === 0) {
+
+            Settings.setVelScroll(Settings.getVelScroll() + 1);
+
+            this.tuberias.children.iterate(tube => tube.setData('vel-x', Settings.getVelScroll()));
+            this.relatedScene.fondoscroll.get().setData('vel-x', Settings.getVelScroll());
+        }
 
         pipe.setX(this.relatedScene.sys.game.config.width + Math.floor(Tuberias.sizeX));
 
@@ -124,7 +135,7 @@ export class TuberiasMoviles {
 
     create(xInicial) {
 
-        this.moviles = this.relatedScene.add.group();
+        this.moviles = this.relatedScene.physics.add.group();
         
         this.moviles.create(xInicial, 0, 'pipe');
         this.moviles.create(xInicial, this.relatedScene.sys.game.config.height, 'pipe');
@@ -139,6 +150,7 @@ export class TuberiasMoviles {
             pipe.setData('vel-x', Settings.getVelScroll());
             
             pipe.setOrigin(0.5, 0).setDepth(15).setAlpha(1);
+            pipe.body.setAllowGravity(false);
             
             if (index % 2 === 0) {
                 
@@ -161,6 +173,8 @@ export class TuberiasMoviles {
         const variaLarga = this.obtenerRndVariacionLarga();
 
         this.moviles.children.iterate((pipe, index) => {
+
+            pipe.setData('vel-x', Settings.getVelScroll());
 
             pipe.setData('larga', pipe.getData('larga') + this.mueveTuberia(pipe, index));
 
