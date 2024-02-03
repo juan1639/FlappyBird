@@ -1,3 +1,4 @@
+import { Settings } from "../scenes/settings.js";
 
 // =========================================================================
 export class Jugador {
@@ -12,7 +13,7 @@ export class Jugador {
 
         this.jugador = this.relatedScene.physics.add.sprite(jugadorPosX, 100, 'jugador');
 
-        this.jugador.setData('vel-y', 260);// fuerza del aleteo del pajaro
+        this.jugador.setData('vel-y', Settings.getFuerzaAleteoPajaro());// fuerza del aleteo del pajaro
         this.aleteo = 0;
 
         this.jugador.setFlip(true).setAngle(0).setAlpha(1).setDepth(20);

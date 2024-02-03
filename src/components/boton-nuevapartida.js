@@ -31,10 +31,11 @@ export class BotonNuevaPartida {
       this.boton.setScale(0.6);
     });
 
-    this.boton.on('pointerdown', () => {
+    this.boton.on('pointerdown', (e) => {
 
       play_sonidos(this.sonidoMenuSelect, false, 0.9);
       this.relatedScene.scene.start(siguienteScene);
+      console.log(e);
     });
 
     this.relatedScene.tweens.add({

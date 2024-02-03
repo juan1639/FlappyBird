@@ -11,6 +11,7 @@ export class Settings {
     static hi = 5000;
     static vidas = 3;
 
+    static fuerzaAleteoPajaro = 200;
     static velScroll = 4;
 
     // -----------------------------------------------
@@ -30,6 +31,10 @@ export class Settings {
         return Settings.vidas;
     }
 
+    static getFuerzaAleteoPajaro() {
+        return Settings.fuerzaAleteoPajaro;
+    }
+
     static getVelScroll() {
         return Settings.velScroll;
     }
@@ -45,6 +50,10 @@ export class Settings {
 
     static setVidas(lifes) {
         Settings.vidas = lifes;
+    }
+
+    static setFuerzaAleteoPajaro(fuerza) {
+        Settings.fuerzaAleteoPajaro = fuerza;
     }
 
     static setVelScroll(velScroll) {
