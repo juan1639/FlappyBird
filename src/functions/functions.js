@@ -9,6 +9,8 @@ function colisionYgameover(jugador, scene) {
   scene.sonidoMusicaFondo.pause();
   play_sonidos(scene.sonidoDieT2, false, 0.9);
 
+  if (Settings.getPuntos() > Settings.getRecord()) Settings.setRecord(Settings.getPuntos());
+
   Settings.setVelScroll(0);
   scene.fondoscroll.get().setData('vel-x', Settings.getVelScroll());
 
