@@ -3,6 +3,7 @@ import { FondoScroll } from '../components/fondoscroll.js';
 import { centrar_txt, play_sonidos } from '../functions/functions.js';
 import { Jugador } from '../components/jugador.js';
 import { BotonNuevaPartida } from '../components/boton-nuevapartida.js';
+import { Settings } from './settings.js';
 
 // =================================================================================
 export class Prenivel extends Phaser.Scene {
@@ -13,6 +14,10 @@ export class Prenivel extends Phaser.Scene {
     }
 
     init() {
+
+        Settings.setPuntos(0);
+        Settings.setVidas(3);
+        Settings.setVelScroll(4);
 
         this.fondoscroll = new FondoScroll(this);
         this.jugador = new Jugador(this);

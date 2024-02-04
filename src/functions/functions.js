@@ -28,7 +28,7 @@ function colisionYgameover(jugador, scene) {
             screenWidth: scene.sys.game.config.width, multip: 1
         });
 
-        scene.botoninicio.create('menuprincipal');
+        scene.botoninicio.create('prenivel');
         play_sonidos(scene.sonidoGameOver, false, 0.9);
       }
     }

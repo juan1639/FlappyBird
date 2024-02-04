@@ -39,6 +39,8 @@ export class Jugador {
 
         this.relatedScene.input.on('pointerdown', () => {
 
+            if (!this.jugador.body.allowGravity) return;
+
             // console.log('pointerdown');
 
             this.jugador.setVelocityY(-this.jugador.getData('vel-y'));
